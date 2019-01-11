@@ -6,7 +6,7 @@ Note, the batch file also operates on the latest versions of Windows as well. Po
 # Use
 Copy the batch file from your attacker machine to a user writeable directory on the victim machine (typically the current users folder, or the "public" user folder will be writeable). 
 
-Also (although the script will run without it), it recommened you copy (an older verison of) AccessChk.exe to the same location. It is recommended you use an older version of accesschk.exe as the latest verison will not work on some older Windows machines. The archived version here worked well in my experience (thanks, g0tmi1k); https://web.archive.org/web/20080530012252/http://live.sysinternals.com/accesschk.exe
+Also (although the script will run without it), it recommened you copy (an older verison of) AccessChk.exe to the same location. It is recommended you use an older version of AccessChk.exe as the latest verison will not work on some older Windows machines. The archived version here worked well in my experience (thanks, g0tmi1k); https://web.archive.org/web/20080530012252/http://live.sysinternals.com/accesschk.exe
 
 There are many ways to copy over files. I found certutil.exe to be the most reliable across Windows editions. For example;
 
