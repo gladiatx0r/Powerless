@@ -1,2 +1,2 @@
 # Powerless
-Windows privilege escalation (enumeration) script designed with OSCP labs (legacy Windows) in mind
+Windows privilege escalation (enumeration) script designed with OSCP labs (legacy Windows machines) in mind
