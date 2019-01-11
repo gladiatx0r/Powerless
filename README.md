@@ -1,6 +1,8 @@
 # Powerless
 A Windows privilege escalation (enumeration) script designed with OSCP labs (i.e. legacy Windows machines without Powershell) in mind. The script represents a conglomeration of various privilege escalation checks, gathered from various sources, all done via native Windows binaries present in almost every version of Windows.
 
+Note, the batch file also operates on the latest versions of Windows as well. PowerShell is not necessary to achieve proper OS enumeration.
+
 # Use
 Copy the batch file from your attacker machine to a user writeable directory on the victim machine (typically the current users folder, or the "public" user folder will be writeable). 
 
