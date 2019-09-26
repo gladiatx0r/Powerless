@@ -99,45 +99,32 @@ reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer\AlwaysInstallElevat
 echo. 
 
 echo --- Program Files and User Directories where everybody (or users) have full or modify permissions --- 
-icacls "C:\Program Files\*" 2>nul | findstr "(F)" | findstr "Everyone" 
-icacls "C:\Program Files (x86)\*" 2>nul | findstr "(F)" | findstr "Everyone" 
-icacls "C:\Program Files\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users" 
-icacls "C:\Program Files (x86)\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users" 
-icacls "C:\Program Files\*" 2>nul | findstr "(M)" | findstr "Everyone" 
-icacls "C:\Program Files (x86)\*" 2>nul | findstr "(M)" | findstr "Everyone" 
-icacls "C:\Program Files\*" 2>nul | findstr "(M)" | findstr "BUILTIN\Users" 
-icacls "C:\Program Files (x86)\*" 2>nul | findstr "(M)" | findstr "BUILTIN\Users" 
-icacls "C:\Documents and Settings\*" 2>nul | findstr "(F)" | findstr "Everyone" 
-icacls "C:\Documents and Settings\*" 2>nul | findstr "(M)" | findstr "Everyone" 
-icacls "C:\Documents and Settings\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users" 
-icacls "C:\Documents and Settings\*" 2>nul | findstr "(M)" | findstr "BUILTIN\Users" 
-icacls "C:\Users\*" 2>nul | findstr "(F)" | findstr "Everyone" 
-icacls "C:\Users\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users" 
-icacls "C:\Users\*" 2>nul | findstr "(M)" | findstr "Everyone" 
-icacls "C:\Users\*" 2>nul | findstr "(M)" | findstr "BUILTIN\Users" 
-icacls "C:\Documents and Settings\*" /T 2>nul | findstr ":F" | findstr "BUILTIN\Users" 
-icacls "C:\Users\*" /T 2>nul | findstr ":F" | findstr "BUILTIN\Users" 
+where /q icacls
+IF ERRORLEVEL 1 (
+    echo icacls is missing, performing checks using cacls for older versions of Windows
+    FOR /F "tokens=* USEBACKQ" %%F IN (`where cacls`) DO (SET cacls_exe=%%F)
+) ELSE (
+    FOR /F "tokens=* USEBACKQ" %%F IN (`where icacls`) DO (SET cacls_exe=%%F)
+)
+%cacls_exe% "C:\Program Files\*" 2>nul | findstr "(F)" | findstr "Everyone" 
+%cacls_exe% "C:\Program Files (x86)\*" 2>nul | findstr "(F)" | findstr "Everyone" 
+%cacls_exe% "C:\Program Files\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users" 
+%cacls_exe% "C:\Program Files (x86)\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users" 
+%cacls_exe% "C:\Program Files\*" 2>nul | findstr "(M)" | findstr "Everyone" 
+%cacls_exe% "C:\Program Files (x86)\*" 2>nul | findstr "(M)" | findstr "Everyone" 
+%cacls_exe% "C:\Program Files\*" 2>nul | findstr "(M)" | findstr "BUILTIN\Users" 
+%cacls_exe% "C:\Program Files (x86)\*" 2>nul | findstr "(M)" | findstr "BUILTIN\Users" 
+%cacls_exe% "C:\Documents and Settings\*" 2>nul | findstr "(F)" | findstr "Everyone" 
+%cacls_exe% "C:\Documents and Settings\*" 2>nul | findstr "(M)" | findstr "Everyone" 
+%cacls_exe% "C:\Documents and Settings\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users" 
+%cacls_exe% "C:\Documents and Settings\*" 2>nul | findstr "(M)" | findstr "BUILTIN\Users" 
+%cacls_exe% "C:\Users\*" 2>nul | findstr "(F)" | findstr "Everyone" 
+%cacls_exe% "C:\Users\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users" 
+%cacls_exe% "C:\Users\*" 2>nul | findstr "(M)" | findstr "Everyone" 
+%cacls_exe% "C:\Users\*" 2>nul | findstr "(M)" | findstr "BUILTIN\Users" 
+%cacls_exe% "C:\Documents and Settings\*" /T 2>nul | findstr ":F" | findstr "BUILTIN\Users" 
+%cacls_exe% "C:\Users\*" /T 2>nul | findstr ":F" | findstr "BUILTIN\Users" 
 echo.
-echo ... performing same checks but using cacls instead of icacls (for older versions of Windows)... 
-cacls "C:\Program Files\*" 2>nul | findstr "(F)" | findstr "Everyone" 
-cacls "C:\Program Files (x86)\*" 2>nul | findstr "(F)" | findstr "Everyone" 
-cacls "C:\Program Files\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users" 
-cacls "C:\Program Files (x86)\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users" 
-cacls "C:\Program Files\*" 2>nul | findstr "(M)" | findstr "Everyone" 
-cacls "C:\Program Files (x86)\*" 2>nul | findstr "(M)" | findstr "Everyone" 
-cacls "C:\Program Files\*" 2>nul | findstr "(M)" | findstr "BUILTIN\Users" 
-cacls "C:\Program Files (x86)\*" 2>nul | findstr "(M)" | findstr "BUILTIN\Users" 
-cacls "C:\Documents and Settings\*" 2>nul | findstr "(F)" | findstr "Everyone" 
-cacls "C:\Documents and Settings\*" 2>nul | findstr "(M)" | findstr "Everyone" 
-cacls "C:\Documents and Settings\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users" 
-cacls "C:\Documents and Settings\*" 2>nul | findstr "(M)" | findstr "BUILTIN\Users" 
-cacls "C:\Users\*" 2>nul | findstr "(F)" | findstr "Everyone" 
-cacls "C:\Users\*" 2>nul | findstr "(F)" | findstr "BUILTIN\Users" 
-cacls "C:\Users\*" 2>nul | findstr "(M)" | findstr "Everyone" 
-cacls "C:\Users\*" 2>nul | findstr "(M)" | findstr "BUILTIN\Users" 
-cacls "C:\Documents and Settings\*" /T 2>nul | findstr ":F" | findstr "BUILTIN\Users" 
-cacls "C:\Users\*" /T 2>nul | findstr ":F" | findstr "BUILTIN\Users" 
-echo. 
 
 echo ---Domain joined? If so check domain controller for GPP files ---- 
 set user 
